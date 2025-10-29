@@ -175,6 +175,11 @@ const (
 	BlobTxPointEvaluationPrecompileGas = 50000   // Gas price for the point evaluation precompile.
 
 	HistoryServeWindow = 8192 // Number of blocks to serve historical block hashes for, EIP-2935.
+
+	// XOTown specific parameters
+	// XOTown uses Clique PoA consensus which has no block rewards.
+	// All 1 trillion XOTN tokens are pre-mined in the genesis block.
+	XOTownBlockReward = uint64(0) // No block reward for XOTown (pre-mined supply)
 )
 
 // Bls12381G1MultiExpDiscountTable is the gas discount table for BLS12-381 G1 multi exponentiation operation

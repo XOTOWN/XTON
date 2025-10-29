@@ -20,6 +20,10 @@ package params
 // Example: To get the wei value of an amount in 'gwei', use
 //
 //	new(big.Int).Mul(value, big.NewInt(params.GWei))
+//
+// XOTown Network uses the same denomination system:
+// 1 XOTN = 10^18 Wei (same as Ether)
+// Total Supply: 1,000,000,000,000 XOTN = 10^30 Wei (1조 XOTN, 선채굴)
 const (
 	Wei   = 1
 	GWei  = 1e9

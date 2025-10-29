@@ -2,7 +2,7 @@
 # with Go source code. If you know what GOPATH is then you probably
 # don't need to bother with make.
 
-.PHONY: geth all test lint fmt clean devtools help
+.PHONY: geth xotown evm all test lint fmt clean devtools help
 
 GOBIN = ./build/bin
 GO ?= latest
@@ -13,6 +13,18 @@ geth:
 	$(GORUN) build/ci.go install ./cmd/geth
 	@echo "Done building."
 	@echo "Run \"$(GOBIN)/geth\" to launch geth."
+
+#? xotown: Build XOTown (customized geth for XOTN coin).
+xotown:
+	go build -o $(GOBIN)/xotown ./cmd/geth
+	@echo "Done building XOTown."
+	@echo "Run \"$(GOBIN)/xotown\" to launch XOTown node."
+
+#? evm: Build evm.
+evm:
+	$(GORUN) build/ci.go install ./cmd/evm
+	@echo "Done building."
+	@echo "Run \"$(GOBIN)/evm\" to launch evm."
 
 #? all: Build all packages and executables.
 all:

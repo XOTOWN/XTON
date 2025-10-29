@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "senera": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@senera/mcp"
+      ],
+      "env": {
+        "SENERA_PROJECT_ROOT": "/Users/kyungwooncha/Desktop/xoTown-chain/go-ethereum"
+      }
+    }
+  }
+}
