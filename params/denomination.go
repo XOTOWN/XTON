@@ -21,11 +21,37 @@ package params
 //
 //	new(big.Int).Mul(value, big.NewInt(params.GWei))
 //
-// XOTown Network uses the same denomination system:
-// 1 XOTN = 10^18 Wei (same as Ether)
-// Total Supply: 1,000,000,000,000 XOTN = 10^30 Wei (1조 XOTN, 선채굴)
+// XOTown Network Denomination System:
+// The XOTown network uses custom denomination names based on XOTN coin.
+//
+// Standard Ethereum names are maintained for compatibility,
+// but XOTown-specific names are also defined:
+//
+//   Ethereum Name  |  XOTown Name  |  Value (in Woti)
+//   ---------------|---------------|------------------
+//   Wei            |  Woti         |  1
+//   KWei           |  KWoti        |  1,000 (10^3)
+//   MWei           |  MWoti        |  1,000,000 (10^6)
+//   GWei           |  GWoti        |  1,000,000,000 (10^9)
+//   Szabo          |  -            |  10^12
+//   Finney         |  -            |  10^15
+//   Ether          |  XOTN         |  1,000,000,000,000,000,000 (10^18)
+//
+// Total Supply: 1,000,000,000,000 XOTN = 10^30 Woti (1조 XOTN, 선채굴)
+//
+// Usage in XOTown:
+//   web3.fromWoti(balance, "xotn")  // Instead of web3.fromWei(balance, "ether")
+//   web3.fromWoti(balance, "gwoti") // Instead of web3.fromWei(balance, "gwei")
 const (
+	// Standard Ethereum denominations (for compatibility)
 	Wei   = 1
 	GWei  = 1e9
 	Ether = 1e18
+
+	// XOTown-specific denominations
+	Woti  = 1     // Base unit (equivalent to Wei)
+	KWoti = 1e3   // Kilo Woti (1,000 Woti)
+	MWoti = 1e6   // Mega Woti (1,000,000 Woti)
+	GWoti = 1e9   // Giga Woti (1,000,000,000 Woti) - equivalent to GWei
+	XOTN  = 1e18  // 1 XOTN = 10^18 Woti (equivalent to Ether)
 )

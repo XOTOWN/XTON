@@ -165,6 +165,12 @@ build/bin/xotown attach ~/xotown-nodes/node1/xotown.ipc
 
 콘솔에서 확인:
 ```javascript
+// XOTown 확장 로드 (권장)
+loadScript("console/xotown.js")
+
+// 네트워크 정보 확인
+xotown.info()
+
 // 블록 높이
 eth.blockNumber
 
@@ -172,7 +178,14 @@ eth.blockNumber
 net.peerCount
 
 // 마스터 계정 잔액 (1조 XOTN이어야 함)
+// XOTN 단위 사용 (권장)
+web3.fromWoti(eth.getBalance("0x마스터_계정_주소"), "xotn")
+
+// 또는 기존 방식 (호환성)
 web3.fromWei(eth.getBalance("0x마스터_계정_주소"), "ether")
+
+// 내 계정 잔액 빠르게 확인
+xotown.myBalance()
 
 // Validator 목록
 clique.getSigners()
@@ -211,6 +224,85 @@ tail -f ~/xotown-nodes/node1.log
 
 ---
 
+## XOTN 단위 시스템
+
+XOTown 네트워크는 독자적인 단위 명명 체계를 사용합니다.
+
+### 단위 변환표
+
+| Ethereum 단위 | XOTown 단위 | 값 (Woti 기준) | 설명 |
+|--------------|-------------|----------------|------|
+| Wei | **Woti** | 1 | 기본 단위 |
+| KWei | **KWoti** | 1,000 (10³) | 킬로 워티 |
+| MWei | **MWoti** | 1,000,000 (10⁶) | 메가 워티 |
+| GWei | **GWoti** | 1,000,000,000 (10⁹) | 기가 워티 |
+| Ether | **XOTN** | 1,000,000,000,000,000,000 (10¹⁸) | 엑소튼 |
+
+### 콘솔에서 사용법
+
+```javascript
+// XOTown 확장 로드
+loadScript("console/xotown.js")
+
+// Woti를 XOTN으로 변환
+web3.fromWoti(balance, "xotn")
+
+// XOTN을 Woti로 변환
+web3.toWoti(100, "xotn")
+
+// 다양한 단위로 변환
+web3.fromWoti(balance, "gwoti")  // GWoti로 표시
+web3.fromWoti(balance, "mwoti")  // MWoti로 표시
+web3.fromWoti(balance, "kwoti")  // KWoti로 표시
+
+// 계정 잔액 확인 (XOTN 단위)
+web3.eth.getBalanceXOTN(address)
+
+// 빠른 내 잔액 확인
+xotown.myBalance()
+```
+
+### 예제
+
+```javascript
+// 마스터 계정 잔액 확인 (1조 XOTN)
+var masterAddr = "0x1234...5678"
+var balance = eth.getBalance(masterAddr)
+
+console.log(web3.fromWoti(balance, "xotn") + " XOTN")
+// 출력: 1000000000000 XOTN
+
+console.log(web3.fromWoti(balance, "gwoti") + " GWoti")
+// 출력: 1000000000000000000000 GWoti
+
+// XOTN 전송
+var amount = web3.toWoti(100, "xotn")  // 100 XOTN을 Woti로
+eth.sendTransaction({
+    from: eth.accounts[0],
+    to: "0xRecipient",
+    value: amount
+})
+```
+
+### 코드에서 사용 (Go)
+
+```go
+import "github.com/ethereum/go-ethereum/params"
+
+// XOTN 단위 사용
+oneXOTN := new(big.Int).SetUint64(params.XOTN)  // 10^18 Woti
+oneGWoti := new(big.Int).SetUint64(params.GWoti) // 10^9 Woti
+
+// 1조 XOTN (초기 공급량)
+totalSupply := new(big.Int).Mul(
+    big.NewInt(1000000000000),  // 1조
+    new(big.Int).SetUint64(params.XOTN),
+)
+// = 10^30 Woti
+```
+
+---
+
 ## 디렉토리 구조
 
 ```
@@ -218,7 +310,9 @@ go-ethereum/
 ├── params/
 │   ├── config.go              # XOTownChainConfig
 │   ├── protocol_params.go     # 블록 보상 설정
-│   └── denomination.go        # XOTN 단위
+│   └── denomination.go        # XOTN 단위 정의 (Woti, KWoti, MWoti, GWoti, XOTN)
+├── console/
+│   └── xotown.js             # XOTown 콘솔 확장 (단위 변환 함수)
 ├── core/
 │   └── genesis/
 │       └── xotown_mainnet.json  # Genesis 파일
