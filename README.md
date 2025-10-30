@@ -1,255 +1,317 @@
-## Go Ethereum
+# XOTown Blockchain
 
-Golang execution layer implementation of the Ethereum protocol.
+**A GIS-based Social Network Powered by Blockchain Technology**
 
-[![API Reference](
-https://pkg.go.dev/badge/github.com/ethereum/go-ethereum
-)](https://pkg.go.dev/github.com/ethereum/go-ethereum?tab=doc)
-[![Go Report Card](https://goreportcard.com/badge/github.com/ethereum/go-ethereum)](https://goreportcard.com/report/github.com/ethereum/go-ethereum)
-[![Travis](https://app.travis-ci.com/ethereum/go-ethereum.svg?branch=master)](https://app.travis-ci.com/github/ethereum/go-ethereum)
-[![Discord](https://img.shields.io/badge/discord-join%20chat-blue.svg)](https://discord.gg/nthXNEv)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+[![Go Version](https://img.shields.io/badge/Go-1.23%2B-00ADD8?logo=go)](https://golang.org/)
+[![Network](https://img.shields.io/badge/Network-XOTown%20Mainnet-green)](https://xotown.com)
 
-Automated builds are available for stable releases and the unstable master branch. Binary
-archives are published at https://geth.ethereum.org/downloads/.
+## Overview
 
-## Building the source
+XOTown is a revolutionary blockchain network that powers **xotown.com**, a location-based social platform where geography meets community. Built on a customized Ethereum protocol, XOTown enables users to create, share, and own their digital presence tied to real-world locations.
 
-For prerequisites and detailed build instructions please read the [Installation Instructions](https://geth.ethereum.org/docs/getting-started/installing-geth).
+### The XOTown Ecosystem
 
-Building `geth` requires both a Go (version 1.23 or later) and a C compiler. You can install
-them using your favourite package manager. Once the dependencies are installed, run
+**xotown.com** combines the best of location-based services and social networking with blockchain technology:
 
-```shell
-make geth
+- **📍 Steps**: Leave location-based messages called "Steps" at specific geographic coordinates
+- **🏠 Digital Housing**: Create and customize your personal virtual space, inspired by the legendary SayClub housing system
+- **👥 Social Interactions**: Invite friends to your house, visit others, and build a vibrant community
+- **🌍 Real-World Integration**: Explore the world through user-generated content tied to actual locations
+- **💎 True Ownership**: All digital assets, houses, and content are secured by blockchain technology
+
+### Why Blockchain?
+
+XOTown leverages blockchain to provide:
+
+- ✅ **True Digital Ownership**: Users own their houses, decorations, and content as NFTs
+- ✅ **Decentralized Platform**: No single point of control or censorship
+- ✅ **Transparent Economy**: XOTN coin powers all in-platform transactions
+- ✅ **Interoperability**: Assets can be traded, transferred, and used across platforms
+- ✅ **Community Governance**: Token holders participate in platform decisions
+
+---
+
+## Network Specifications
+
+| Parameter | Value |
+|-----------|-------|
+| **Coin Name** | XOTN (XOTown Coin) |
+| **Network Name** | XOTown Mainnet |
+| **Chain ID** | 29090 |
+| **Consensus** | Clique PoA (Proof of Authority) |
+| **Block Time** | 3 seconds |
+| **Total Supply** | 1,000,000,000,000 XOTN (1 trillion, pre-mined) |
+| **Block Reward** | 0 XOTN (fixed supply) |
+| **Base Unit** | Woti (10¹⁸ Woti = 1 XOTN) |
+
+---
+
+## Key Features
+
+### 🚀 High Performance
+- **3-second block time** for near-instant transactions
+- Optimized for high-throughput social interactions
+- Efficient GIS data processing on-chain
+
+### 🔒 Enterprise-Grade Security
+- Clique PoA consensus with trusted validators
+- Pre-audited codebase based on go-ethereum v1.15.11
+- Regular security updates and monitoring
+
+### 🌐 Location-Based Smart Contracts
+- Native support for geographic coordinates
+- Location-verified content creation
+- Spatial indexing for efficient queries
+
+### 💰 Unique Denomination System
+- **Woti**: Base unit (like Wei)
+- **GWoti**: Giga Woti (10⁹)
+- **XOTN**: Main coin unit (10¹⁸ Woti)
+
+Custom naming convention designed for the XOTown ecosystem.
+
+---
+
+## Quick Start
+
+### For Regular Users (Join the Network)
+
+```bash
+# Download the latest release
+wget https://github.com/XOTOWN/XTON/releases/latest/download/xotown-linux-amd64.tar.gz
+
+# Extract and make it executable
+tar -xzf xotown-linux-amd64.tar.gz
+chmod +x xotown
+
+# Download genesis file
+wget https://raw.githubusercontent.com/XOTOWN/XTON/main/core/genesis/xotown_mainnet.json
+
+# Initialize your node
+./xotown init xotown_mainnet.json
+
+# Start your node (bootnode info will be provided after mainnet launch)
+./xotown --networkid 29090 \
+  --bootnodes "enode://[BOOTNODE_INFO_PROVIDED_AFTER_LAUNCH]@[IP]:30303" \
+  --syncmode "snap"
 ```
 
-or, to build the full suite of utilities:
+**Note**: Official bootnode information will be announced on our [Discord](https://discord.gg/xotown) after mainnet launch.
 
-```shell
-make all
+### For Developers (Build from Source)
+
+```bash
+# Clone the repository
+git clone https://github.com/XOTOWN/XTON.git
+cd XTON
+
+# Switch to the stable branch
+git checkout xotown-v1.15.11
+
+# Build XOTown
+make xotown
+
+# The binary will be at build/bin/xotown
+./build/bin/xotown version
 ```
 
-## Executables
+**Requirements**: Go 1.23+ ([installation guide](https://golang.org/doc/install))
 
-The go-ethereum project comes with several wrappers/executables found in the `cmd`
-directory.
+---
 
-|  Command   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| :--------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`geth`** | Our main Ethereum CLI client. It is the entry point into the Ethereum network (main-, test- or private net), capable of running as a full node (default), archive node (retaining all historical state) or a light node (retrieving data live). It can be used by other processes as a gateway into the Ethereum network via JSON RPC endpoints exposed on top of HTTP, WebSocket and/or IPC transports. `geth --help` and the [CLI page](https://geth.ethereum.org/docs/fundamentals/command-line-options) for command line options. |
-|   `clef`   | Stand-alone signing tool, which can be used as a backend signer for `geth`.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|  `devp2p`  | Utilities to interact with nodes on the networking layer, without running a full blockchain.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|  `abigen`  | Source code generator to convert Ethereum contract definitions into easy-to-use, compile-time type-safe Go packages. It operates on plain [Ethereum contract ABIs](https://docs.soliditylang.org/en/develop/abi-spec.html) with expanded functionality if the contract bytecode is also available. However, it also accepts Solidity source files, making development much more streamlined. Please see our [Native DApps](https://geth.ethereum.org/docs/developers/dapp-developer/native-bindings) page for details.                                  |
-|   `evm`    | Developer utility version of the EVM (Ethereum Virtual Machine) that is capable of running bytecode snippets within a configurable environment and execution mode. Its purpose is to allow isolated, fine-grained debugging of EVM opcodes (e.g. `evm --code 60ff60ff --debug run`).                                                                                                                                                                                                                                               |
-| `rlpdump`  | Developer utility tool to convert binary RLP ([Recursive Length Prefix](https://ethereum.org/en/developers/docs/data-structures-and-encoding/rlp)) dumps (data encoding used by the Ethereum protocol both network as well as consensus wise) to user-friendlier hierarchical representation (e.g. `rlpdump --hex CE0183FFFFFFC4C304050583616263`).                                                                                                                                                                                |
+## Use Cases
 
-## Running `geth`
+### For Users
+- **Leave Your Mark**: Drop "Steps" (messages) at meaningful locations
+- **Build Your Home**: Create and decorate your virtual house
+- **Social Discovery**: Find and interact with nearby users
+- **Collect Memories**: Own your location-based content forever
 
-Going through all the possible command line flags is out of scope here (please consult our
-[CLI Wiki page](https://geth.ethereum.org/docs/fundamentals/command-line-options)),
-but we've enumerated a few common parameter combos to get you up to speed quickly
-on how you can run your own `geth` instance.
+### For Developers
+- **Build Location Dapps**: Create apps using XOTown's GIS features
+- **NFT Marketplaces**: Trade houses, decorations, and collectibles
+- **Social Protocols**: Develop new ways for users to interact
+- **Data Analytics**: Analyze location-based social trends
 
-### Hardware Requirements
+### For Businesses
+- **Location Marketing**: Sponsor Steps at key locations
+- **Virtual Real Estate**: Develop and sell premium house designs
+- **Community Events**: Host virtual gatherings tied to real locations
+- **Brand Experiences**: Create immersive location-based campaigns
 
-Minimum:
+---
 
-* CPU with 4+ cores
-* 8GB RAM
-* 1TB free storage space to sync the Mainnet
-* 8 MBit/sec download Internet service
+## Architecture
 
-Recommended:
+XOTown is built on a customized Ethereum protocol with the following enhancements:
 
-* Fast CPU with 8+ cores
-* 16GB+ RAM
-* High-performance SSD with at least 1TB of free space
-* 25+ MBit/sec download Internet service
-
-### Full node on the main Ethereum network
-
-By far the most common scenario is people wanting to simply interact with the Ethereum
-network: create accounts; transfer funds; deploy and interact with contracts. For this
-particular use case, the user doesn't care about years-old historical data, so we can
-sync quickly to the current state of the network. To do so:
-
-```shell
-$ geth console
+```
+┌─────────────────────────────────────────────────┐
+│           XOTown Application Layer              │
+│         (xotown.com - Social Platform)          │
+├─────────────────────────────────────────────────┤
+│          Smart Contract Layer                   │
+│   (Steps, Houses, NFTs, Social Interactions)    │
+├─────────────────────────────────────────────────┤
+│          XOTown Blockchain Layer                │
+│     (Clique PoA, 3s blocks, XOTN token)        │
+├─────────────────────────────────────────────────┤
+│      Modified go-ethereum v1.15.11              │
+│   (Custom denomination, Network configs)        │
+└─────────────────────────────────────────────────┘
 ```
 
-This command will:
- * Start `geth` in snap sync mode (default, can be changed with the `--syncmode` flag),
-   causing it to download more data in exchange for avoiding processing the entire history
-   of the Ethereum network, which is very CPU intensive.
- * Start the built-in interactive [JavaScript console](https://geth.ethereum.org/docs/interacting-with-geth/javascript-console),
-   (via the trailing `console` subcommand) through which you can interact using [`web3` methods](https://github.com/ChainSafe/web3.js/blob/0.20.7/DOCUMENTATION.md) 
-   (note: the `web3` version bundled within `geth` is very old, and not up to date with official docs),
-   as well as `geth`'s own [management APIs](https://geth.ethereum.org/docs/interacting-with-geth/rpc).
-   This tool is optional and if you leave it out you can always attach it to an already running
-   `geth` instance with `geth attach`.
+### Technical Stack
 
-### A Full node on the Holesky test network
+- **Base Protocol**: Ethereum (go-ethereum v1.15.11)
+- **Consensus**: Clique PoA (Proof of Authority)
+- **Smart Contracts**: Solidity 0.8+
+- **API**: JSON-RPC, WebSocket, GraphQL
+- **Frontend**: Compatible with Web3.js, ethers.js
+- **Wallets**: MetaMask, WalletConnect, Custom
 
-Transitioning towards developers, if you'd like to play around with creating Ethereum
-contracts, you almost certainly would like to do that without any real money involved until
-you get the hang of the entire system. In other words, instead of attaching to the main
-network, you want to join the **test** network with your node, which is fully equivalent to
-the main network, but with play-Ether only.
+---
 
-```shell
-$ geth --holesky console
+## Documentation
+
+- 💰 [XOTN Units](XOTN_UNITS.md) - Denomination system explained
+- 🔗 [Join Network](docs/JOIN_NETWORK.md) - How to participate
+- 🤝 [Contributing](CONTRIBUTING.md) - Contribution guidelines
+- 📜 [License](LICENSE) - LGPL v3.0
+
+---
+
+## Network Roadmap
+
+### Phase 1: Foundation (Q1 2025) ✅
+- ✅ Launch XOTown Mainnet with 5 validators
+- ✅ Deploy core smart contracts (Steps, Houses)
+- ✅ Release xotown.com beta platform
+- ✅ Open-source blockchain code
+
+### Phase 2: Growth (Q2 2025)
+- 🔄 Expand to 20+ external validators
+- 🔄 Launch NFT marketplace for houses/items
+- 🔄 Mobile app release (iOS/Android)
+- 🔄 Integration with major wallets
+
+### Phase 3: Ecosystem (Q3-Q4 2025)
+- ⏳ Developer grants program
+- ⏳ Third-party Dapp ecosystem
+- ⏳ Cross-chain bridges
+- ⏳ DAO governance implementation
+
+### Phase 4: Decentralization (2026)
+- ⏳ 100+ validator nodes worldwide
+- ⏳ Full community governance
+- ⏳ Layer 2 scaling solutions
+- ⏳ Global expansion
+
+---
+
+## Token Economics
+
+### XOTN Token Utility
+
+1. **Transaction Fees**: All network operations require XOTN
+2. **House Purchases**: Buy and upgrade virtual houses
+3. **Premium Features**: Access exclusive platform features
+4. **Content Monetization**: Tip creators for great Steps
+5. **Governance**: Vote on platform upgrades (future)
+
+### Distribution
+
+```
+Total Supply: 1,000,000,000,000 XOTN (Fixed)
+
+├─ Platform Reserve:    40% (400B XOTN) - Development & Operations
+├─ Community Rewards:   30% (300B XOTN) - User incentives
+├─ Team & Advisors:     15% (150B XOTN) - 4-year vesting
+├─ Ecosystem Fund:      10% (100B XOTN) - Grants & Partnerships
+└─ Initial Liquidity:    5% (50B XOTN)  - DEX listings
 ```
 
-The `console` subcommand has the same meaning as above and is equally
-useful on the testnet too.
+---
 
-Specifying the `--holesky` flag, however, will reconfigure your `geth` instance a bit:
+## Community & Support
 
- * Instead of connecting to the main Ethereum network, the client will connect to the Holesky 
-   test network, which uses different P2P bootnodes, different network IDs and genesis
-   states.
- * Instead of using the default data directory (`~/.ethereum` on Linux for example), `geth`
-   will nest itself one level deeper into a `holesky` subfolder (`~/.ethereum/holesky` on
-   Linux). Note, on OSX and Linux this also means that attaching to a running testnet node
-   requires the use of a custom endpoint since `geth attach` will try to attach to a
-   production node endpoint by default, e.g.,
-   `geth attach <datadir>/holesky/geth.ipc`. Windows users are not affected by
-   this.
+### Connect With Us
 
-*Note: Although some internal protective measures prevent transactions from
-crossing over between the main network and test network, you should always
-use separate accounts for play and real money. Unless you manually move
-accounts, `geth` will by default correctly separate the two networks and will not make any
-accounts available between them.*
+- 🌐 **Website**: [xotown.com](https://xotown.com)
+- 💬 **Discord**: [discord.gg/xotown](https://discord.gg/xotown)
+- 🐦 **Twitter**: [@xotown_official](https://twitter.com/xotown_official)
+- 📧 **Email**: support@xotown.com
+- 📱 **Telegram**: [t.me/xotown](https://t.me/xotown)
 
-### Configuration
+### Contributing
 
-As an alternative to passing the numerous flags to the `geth` binary, you can also pass a
-configuration file via:
+We welcome contributions from the community! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-```shell
-$ geth --config /path/to/your_config.toml
-```
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-To get an idea of how the file should look like you can use the `dumpconfig` subcommand to
-export your existing configuration:
+---
 
-```shell
-$ geth --your-favourite-flags dumpconfig
-```
+## Security
 
-#### Docker quick start
+### Responsible Disclosure
 
-One of the quickest ways to get Ethereum up and running on your machine is by using
-Docker:
+If you discover a security vulnerability, please email security@xotown.com. We take security seriously and will respond promptly.
 
-```shell
-docker run -d --name ethereum-node -v /Users/alice/ethereum:/root \
-           -p 8545:8545 -p 30303:30303 \
-           ethereum/client-go
-```
+### Bug Bounty Program
 
-This will start `geth` in snap-sync mode with a DB memory allowance of 1GB, as the
-above command does.  It will also create a persistent volume in your home directory for
-saving your blockchain as well as map the default ports. There is also an `alpine` tag
-available for a slim version of the image.
+We offer rewards for finding critical bugs. Details at [xotown.com/security/bounty](https://xotown.com/security/bounty)
 
-Do not forget `--http.addr 0.0.0.0`, if you want to access RPC from other containers
-and/or hosts. By default, `geth` binds to the local interface and RPC endpoints are not
-accessible from the outside.
-
-### Programmatically interfacing `geth` nodes
-
-As a developer, sooner rather than later you'll want to start interacting with `geth` and the
-Ethereum network via your own programs and not manually through the console. To aid
-this, `geth` has built-in support for a JSON-RPC based APIs ([standard APIs](https://ethereum.github.io/execution-apis/api-documentation/)
-and [`geth` specific APIs](https://geth.ethereum.org/docs/interacting-with-geth/rpc)).
-These can be exposed via HTTP, WebSockets and IPC (UNIX sockets on UNIX based
-platforms, and named pipes on Windows).
-
-The IPC interface is enabled by default and exposes all the APIs supported by `geth`,
-whereas the HTTP and WS interfaces need to manually be enabled and only expose a
-subset of APIs due to security reasons. These can be turned on/off and configured as
-you'd expect.
-
-HTTP based JSON-RPC API options:
-
-  * `--http` Enable the HTTP-RPC server
-  * `--http.addr` HTTP-RPC server listening interface (default: `localhost`)
-  * `--http.port` HTTP-RPC server listening port (default: `8545`)
-  * `--http.api` API's offered over the HTTP-RPC interface (default: `eth,net,web3`)
-  * `--http.corsdomain` Comma separated list of domains from which to accept cross-origin requests (browser enforced)
-  * `--ws` Enable the WS-RPC server
-  * `--ws.addr` WS-RPC server listening interface (default: `localhost`)
-  * `--ws.port` WS-RPC server listening port (default: `8546`)
-  * `--ws.api` API's offered over the WS-RPC interface (default: `eth,net,web3`)
-  * `--ws.origins` Origins from which to accept WebSocket requests
-  * `--ipcdisable` Disable the IPC-RPC server
-  * `--ipcpath` Filename for IPC socket/pipe within the datadir (explicit paths escape it)
-
-You'll need to use your own programming environments' capabilities (libraries, tools, etc) to
-connect via HTTP, WS or IPC to a `geth` node configured with the above flags and you'll
-need to speak [JSON-RPC](https://www.jsonrpc.org/specification) on all transports. You
-can reuse the same connection for multiple requests!
-
-**Note: Please understand the security implications of opening up an HTTP/WS based
-transport before doing so! Hackers on the internet are actively trying to subvert
-Ethereum nodes with exposed APIs! Further, all browser tabs can access locally
-running web servers, so malicious web pages could try to subvert locally available
-APIs!**
-
-### Operating a private network
-
-Maintaining your own private network is more involved as a lot of configurations taken for
-granted in the official networks need to be manually set up.
-
-Unfortunately since [the Merge](https://ethereum.org/en/roadmap/merge/) it is no longer possible
-to easily set up a network of geth nodes without also setting up a corresponding beacon chain.
-
-There are three different solutions depending on your use case:
-
-  * If you are looking for a simple way to test smart contracts from go in your CI, you can use the [Simulated Backend](https://geth.ethereum.org/docs/developers/dapp-developer/native-bindings#blockchain-simulator).
-  * If you want a convenient single node environment for testing, you can use our [Dev Mode](https://geth.ethereum.org/docs/developers/dapp-developer/dev-mode).
-  * If you are looking for a multiple node test network, you can set one up quite easily with [Kurtosis](https://geth.ethereum.org/docs/fundamentals/kurtosis).
-
-## Contribution
-
-Thank you for considering helping out with the source code! We welcome contributions
-from anyone on the internet, and are grateful for even the smallest of fixes!
-
-If you'd like to contribute to go-ethereum, please fork, fix, commit and send a pull request
-for the maintainers to review and merge into the main code base. If you wish to submit
-more complex changes though, please check up with the core devs first on [our Discord Server](https://discord.gg/invite/nthXNEv)
-to ensure those changes are in line with the general philosophy of the project and/or get
-some early feedback which can make both your efforts much lighter as well as our review
-and merge procedures quick and simple.
-
-Please make sure your contributions adhere to our coding guidelines:
-
- * Code must adhere to the official Go [formatting](https://golang.org/doc/effective_go.html#formatting)
-   guidelines (i.e. uses [gofmt](https://golang.org/cmd/gofmt/)).
- * Code must be documented adhering to the official Go [commentary](https://golang.org/doc/effective_go.html#commentary)
-   guidelines.
- * Pull requests need to be based on and opened against the `master` branch.
- * Commit messages should be prefixed with the package(s) they modify.
-   * E.g. "eth, rpc: make trace configs optional"
-
-Please see the [Developers' Guide](https://geth.ethereum.org/docs/developers/geth-developer/dev-guide)
-for more details on configuring your environment, managing project dependencies, and
-testing procedures.
-
-### Contributing to geth.ethereum.org
-
-For contributions to the [go-ethereum website](https://geth.ethereum.org), please checkout and raise pull requests against the `website` branch.
-For more detailed instructions please see the `website` branch [README](https://github.com/ethereum/go-ethereum/tree/website#readme) or the 
-[contributing](https://geth.ethereum.org/docs/developers/geth-developer/contributing) page of the website.
+---
 
 ## License
 
-The go-ethereum library (i.e. all code outside of the `cmd` directory) is licensed under the
-[GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html),
-also included in our repository in the `COPYING.LESSER` file.
+XOTown is licensed under the [GNU Lesser General Public License v3.0](LICENSE).
 
-The go-ethereum binaries (i.e. all code inside of the `cmd` directory) are licensed under the
-[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), also
-included in our repository in the `COPYING` file.
+This project is derived from [go-ethereum](https://github.com/ethereum/go-ethereum), which is also licensed under LGPL v3.0.
+
+---
+
+## Credits
+
+### Built On
+- **go-ethereum**: The foundation of XOTown blockchain
+- **Ethereum Community**: For pioneering blockchain technology
+- **Clique Contributors**: For the PoA consensus mechanism
+
+### Inspiration
+- **SayClub**: Pioneering virtual housing and social spaces
+- **Foursquare/Swarm**: Location-based check-ins
+- **Pokémon GO**: Real-world location gaming
+- **Decentraland**: Virtual world ownership
+
+---
+
+## Disclaimer
+
+XOTown is experimental technology. While we strive for security and reliability:
+
+- Cryptocurrency carries inherent risks
+- Do not invest more than you can afford to lose
+- The platform is provided "as is" without warranties
+- Past performance does not guarantee future results
+
+Always do your own research (DYOR) before participating.
+
+---
+
+<p align="center">
+  <strong>Building the Future of Location-Based Social Networks</strong><br>
+  Made with ❤️ by the XOTown Team
+</p>
+
+<p align="center">
+  <a href="https://xotown.com">Website</a> •
+  <a href="docs/JOIN_NETWORK.md">Join Network</a> •
+  <a href="CONTRIBUTING.md">Contributing</a> •
+  <a href="https://discord.gg/xotown">Discord</a>
+</p>
