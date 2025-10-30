@@ -184,25 +184,25 @@ XOTown is built on a customized Ethereum protocol with the following enhancement
 
 ## Network Roadmap
 
-### Phase 1: Foundation (Q1 2025) ✅
-- ✅ Launch XOTown Mainnet with 5 validators
-- ✅ Deploy core smart contracts (Steps, Houses)
-- ✅ Release xotown.com beta platform
-- ✅ Open-source blockchain code
+### Phase 1: Foundation (Q2 2026)
+- 🔄 Launch XOTown Mainnet with 5 validators
+- 🔄 Deploy core smart contracts (Steps, Houses)
+- 🔄 Release xotown.com beta platform
+- 🔄 Open-source blockchain code
 
-### Phase 2: Growth (Q2 2025)
-- 🔄 Expand to 20+ external validators
-- 🔄 Launch NFT marketplace for houses/items
-- 🔄 Mobile app release (iOS/Android)
-- 🔄 Integration with major wallets
+### Phase 2: Growth (Q3 2026)
+- ⏳ Expand to 20+ external validators
+- ⏳ Launch NFT marketplace for houses/items
+- ⏳ Mobile app release (iOS/Android)
+- ⏳ Integration with major wallets
 
-### Phase 3: Ecosystem (Q3-Q4 2025)
+### Phase 3: Ecosystem (Q4 2026)
 - ⏳ Developer grants program
 - ⏳ Third-party Dapp ecosystem
 - ⏳ Cross-chain bridges
 - ⏳ DAO governance implementation
 
-### Phase 4: Decentralization (2026)
+### Phase 4: Decentralization (2027)
 - ⏳ 100+ validator nodes worldwide
 - ⏳ Full community governance
 - ⏳ Layer 2 scaling solutions
