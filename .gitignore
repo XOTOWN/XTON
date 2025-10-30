@@ -98,5 +98,3 @@ bootnodes_actual.txt
 enode_info.txt
 # 내부 셋업 가이드 (실제 주소 포함 가능)
 XOTOWN_SETUP_GUIDE.md
-# 프라이빗 키 추출 스크립트
-tools/extract_private_key.py
