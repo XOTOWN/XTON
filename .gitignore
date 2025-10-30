@@ -80,6 +80,8 @@ build/bin/xotown
 # XOTown private configuration (NEVER COMMIT!)
 # 내부 개발 가이드 (Claude Code 전용)
 CLAUDE.md
+# 프라이빗 키 추출 가이드 (내부용)
+EXTRACT_PRIVATE_KEY.md
 # 실제 validator 주소가 포함된 genesis 파일
 core/genesis/xotown_mainnet_actual.json
 # 실제 운영 스크립트 (실제 주소/비밀번호 포함)
@@ -96,3 +98,5 @@ bootnodes_actual.txt
 enode_info.txt
 # 내부 셋업 가이드 (실제 주소 포함 가능)
 XOTOWN_SETUP_GUIDE.md
+# 프라이빗 키 추출 스크립트
+tools/extract_private_key.py
