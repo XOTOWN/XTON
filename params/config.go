@@ -111,6 +111,34 @@ var (
 		CancunTime:                    newUint64(1706655072),
 		Ethash:                        new(EthashConfig),
 	}
+
+	// XOTownChainConfig contains the chain parameters to run a node on the XOTown Public Mainnet.
+	// XOTown Public Mainnet Configuration - XOTN Coin
+	XOTownChainConfig = &ChainConfig{
+		ChainID:                       big.NewInt(29090),
+		HomesteadBlock:                big.NewInt(0),
+		DAOForkBlock:                  nil,
+		DAOForkSupport:                false,
+		EIP150Block:                   big.NewInt(0),
+		EIP155Block:                   big.NewInt(0),
+		EIP158Block:                   big.NewInt(0),
+		ByzantiumBlock:                big.NewInt(0),
+		ConstantinopleBlock:           big.NewInt(0),
+		PetersburgBlock:               big.NewInt(0),
+		IstanbulBlock:                 big.NewInt(0),
+		MuirGlacierBlock:              big.NewInt(0),
+		BerlinBlock:                   big.NewInt(0),
+		LondonBlock:                   big.NewInt(0),
+		ArrowGlacierBlock:             nil,
+		GrayGlacierBlock:              nil,
+		TerminalTotalDifficulty:       nil, // No PoS merge for pure Clique PoA
+		TerminalTotalDifficultyPassed: false,
+		MergeNetsplitBlock:            nil,
+		ShanghaiTime:                  nil,
+		CancunTime:                    nil,
+		Ethash:                        nil,
+		Clique:                        &CliqueConfig{Period: 3, Epoch: 30000}, // 3 second block time
+	}
 	// GoerliChainConfig contains the chain parameters to run a node on the Görli test network.
 	GoerliChainConfig = &ChainConfig{
 		ChainID:                       big.NewInt(5),
@@ -311,10 +339,11 @@ var (
 
 // NetworkNames are user friendly names to use in the chain spec banner.
 var NetworkNames = map[string]string{
-	MainnetChainConfig.ChainID.String(): "mainnet",
-	GoerliChainConfig.ChainID.String():  "goerli",
-	SepoliaChainConfig.ChainID.String(): "sepolia",
-	HoleskyChainConfig.ChainID.String(): "holesky",
+	MainnetChainConfig.ChainID.String():  "mainnet",
+	GoerliChainConfig.ChainID.String():   "goerli",
+	SepoliaChainConfig.ChainID.String():  "sepolia",
+	HoleskyChainConfig.ChainID.String():  "holesky",
+	XOTownChainConfig.ChainID.String():   "xotown",
 }
 
 // ChainConfig is the core config which determines the blockchain settings.
